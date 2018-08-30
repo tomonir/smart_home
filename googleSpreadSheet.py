@@ -39,5 +39,5 @@ class SpreadsheetWriter(object):
 
 
 
-test = SpreadsheetWriter(credentials_file_path='optimal-cabinet-213218-fd755cec2c94.json',sheet_name='test')
-test.write_at('A2','90')
+#test = SpreadsheetWriter(credentials_file_path='optimal-cabinet-213218-fd755cec2c94.json',sheet_name='test')
+#test.write_at('A2','90')
