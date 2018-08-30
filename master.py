@@ -10,8 +10,7 @@ logger = ProjectLogger(log_file_path ='project.log')
 
 
 class Master(object):
-	"""A customer of ABC Bank with a checking account. Customers have the
-	following properties:
+	"""This class controls all other plugins:
 
 	Attributes:
 		name: A string representing the customer's name.
