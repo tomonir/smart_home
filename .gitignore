@@ -6,3 +6,9 @@ project\.log
 projectLogger\.pyc
 
 googleSpreadSheet\.pyc
+
+calender_credentials\.json
+
+credentials\.json
+
+token\.json
