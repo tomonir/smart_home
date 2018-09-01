@@ -1,10 +1,3 @@
-from __future__ import print_function
-import datetime
-from googleapiclient.discovery import build
-from httplib2 import Http
-from oauth2client import file, client, tools
-
-
 import requests
 import json
 from projectLogger import ProjectLogger
@@ -57,24 +50,22 @@ class ExchangeRate(object):
     			
 
 
-
-# If modifying these scopes, delete the file token.json.
-SCOPES = 'https://www.googleapis.com/auth/calendar.readonly'
-class Appointments(object):
-
-		def __init__(self,service):
-			self.service = service
-			
-		def collectAppointments(self,request_num_of_appoinments=10):
-			return
-			
-
-class Test(object):
+class Weather(object):
 	def __init__(self):
-		data = 1
-		data2 = data + 1
-	def getData(self):
-		return 1	
+		logger.info("Intialized  Weather")
+
+	def collectCurrentTemparature(self):
+
+		response = requests.get("http://api.openweathermap.org/data/2.5/weather?q=Sonnenberg,DE&APPID=885b527482b54b097a23c78a43660402")
+			
+		if response.status_code != 200:
+    		# This means something went wrong.
+			logger.error("collectCurrentTemparature failed")
+			return
+		return json.loads (response.text)	
+		#data = json.loads(response.text)
+		#return (data['EUR_BDT']['val'])	
+
 
 
 #test
@@ -82,18 +73,6 @@ class Test(object):
 #print test.collectEUROtoBDTRate()
 
 
-store = file.Storage('token.json')
-creds = store.get()
-
-creds = store.get()
-if not creds or creds.invalid:
-	flow = client.flow_from_clientsecrets('calender_credentials.json', SCOPES)
-	creds = tools.run_flow(flow, store)
-service = build('calendar', 'v3', http=creds.authorize(Http()))	
-
-test = Appointments(service)
-#print test.collectEUROtoBDTRate()
-
-#t = Test()
-#print (t.getData())
+t = Weather()
+print (t.collectCurrentTemparature())
 
