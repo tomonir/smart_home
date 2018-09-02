@@ -14,3 +14,7 @@ credentials\.json
 token\.json
 
 __pycache__/calendar\.cpython-35\.pyc
+
+collector\.pyc
+
+connections\.pyc

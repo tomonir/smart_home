@@ -85,7 +85,7 @@ class Connections(object):
             out_put += "{'time':'"+dt.strftime(TIME_FORMAT)[11:16]+"',"+ "'transport':'"+ connection_name+ "'," +"'direction':'"+ departure.itdservingline['direction'].lower()+"'}," 
             #print (result.append(dt.strftime(TIME_FORMAT) + " " + connection_name + "->" + departure.itdservingline['direction'].lower()))
         #print(json.dumps(result))
-        return ("{items:["+out_put+"]}")
+        return ("["+out_put+"]")
 
 
     #@main.command()
@@ -120,6 +120,6 @@ class Connections(object):
 
 
 #list_directions('5006157')
-t = Connections()
-print (t.scrape('5006157',["Backnang","Bietigheim-Bissingen"]))
+#t = Connections()
+#print (t.scrape('5006157',["Backnang","Bietigheim-Bissingen"]))
 
