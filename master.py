@@ -2,7 +2,8 @@
 from googleSpreadSheet import SpreadsheetWriter
 from  collector 	import 		ExchangeRate
 from  collector 	import 		Weather
-from  connections 	import 	Connections
+from  connections	import 	Connections
+from  mycalendar import Appointments
 
 
 import datetime
@@ -16,10 +17,10 @@ logger = ProjectLogger(log_file_path ='project.log')
 
 
 
-SHOW_EXCHANGE_RATE_EVERY 	= 	20	#3600/2 	#sec
-SHOW_CURRENT_TEMP_EVERY 	= 	30	#60*5 	#sec
-SHOW_CONNECTIONS_EVERY 		= 	40	#60*5 	#sec
-SHOW_APPOINTMENTS_EVERY 	= 	50	#3600 	#sec
+SHOW_EXCHANGE_RATE_EVERY 	= 	60*60	#3600/2 	#sec
+SHOW_CURRENT_TEMP_EVERY 	= 	60*30	#60*5 	#sec
+SHOW_CONNECTIONS_EVERY 		= 	60*5	#60*5 	#sec
+SHOW_APPOINTMENTS_EVERY 	= 	50*60	#3600 	#sec
 
 
 SHOW_DATA_AT="spread_sheet"
@@ -61,13 +62,28 @@ class SreadSheet(object):
 
 		start_row_number = 2 
 		json_data = json.loads(data)
-		print (json_data)
+		#print (json_data)
 		for item in json_data:
 			self.spredsheet_writer.write_at(time_cell + str (start_row_number),item['time'])
 			self.spredsheet_writer.write_at(transport_cell + str (start_row_number),item['transport'])
 			self.spredsheet_writer.write_at(direction_cell + str (start_row_number),item['direction'])
 			start_row_number +=1
-			
+	def show_appintments(self,data):
+		date_cell = "G"
+		time_cell = "H"
+		summary_cell = "I"
+
+		
+
+		start_row_number = 2 
+		json_data = json.loads(data)
+		#print (json_data)
+		for item in json_data:
+			self.spredsheet_writer.write_at(date_cell + str (start_row_number),item['date'])
+			self.spredsheet_writer.write_at(time_cell + str (start_row_number),item['time'])
+			self.spredsheet_writer.write_at(summary_cell + str (start_row_number),item['summary'])
+			start_row_number +=1
+		print (data)		
 
 class Master(object):
 	"""This class controls all other plugins:
@@ -83,6 +99,7 @@ class Master(object):
 		self.exchangeRate = ExchangeRate()
 		self.weather      = Weather()
 		self.myconnection = Connections()
+		self.myppointments = Appointments()
 		 
 		
 		#place holder for other option
@@ -116,6 +133,9 @@ class Master(object):
 		data = self.myconnection.scrape('5006157',["Backnang","Bietigheim-Bissingen"])
 		self.data_visualizer.show_connections(data)
 	
+	def show_appintments(self):
+		data = self.myppointments.getAppointments()
+		self.data_visualizer.show_appintments(data)	
 
 	
 	
@@ -150,6 +170,7 @@ class Master(object):
 			> SHOW_APPOINTMENTS_EVERY ):
 			print ("process appointments")
 			#todo heathcheck
+			#self.show_appintments()
 			self.date_timeLast_sccessful_access_appoitments 	=	datetime.datetime.now()
 
 	

@@ -44,10 +44,11 @@ class Appointments(object):
             #print (event)
             #print ("----------------------------------------")
             start = event['start'].get('dateTime', event['start'].get('date')) 
-            out_put += "{'date':'"+start[0:10]+"',"+ "'time':'"+ start[11:16]+ "'," +"'summary':'"+ event['summary']+"'},"
+            #out_put += "{'date':'"+start[0:10]+"',"+ "'time':'"+ start[11:16]+ "'," +"'summary':'"+ event['summary']+"'},"
+            out_put +="{\"date\":\""+str (start[0:10])+"\"," +"\"time\":\""+str (start[11:16])+"\"," +"\"summary\":\""+str (event['summary'])+"\"},"
             #print(start[0:10],start[11:16], event['summary'])
-        return "{'items':["+out_put+"]}"
+        return "{'["+out_put[:-1]+"']}"
 
 
-test = Appointments()
-print (test.getAppointments())
+#test = Appointments()
+#print (test.getAppointments())
