@@ -54,16 +54,20 @@ class SreadSheet(object):
 		self.spredsheet_writer.write_at('B2',humidity)
 
 	def show_connections(self,data):
-		print (data)
-		json_data = json.loads(json.dumps(data))
+
+		transport_cell = "E"
+		time_cell = "D"
+		direction_cell = "F"
+
+		start_row_number = 2 
+		json_data = json.loads(data)
 		print (json_data)
 		for item in json_data:
-			for attribute, value in item.items():
-				print  (attribute, value) 
-		# for item in j_data:
-    	# 	for attribute, value in item.items():
-        # 		print attribute, value # example usage
-		
+			self.spredsheet_writer.write_at(time_cell + str (start_row_number),item['time'])
+			self.spredsheet_writer.write_at(transport_cell + str (start_row_number),item['transport'])
+			self.spredsheet_writer.write_at(direction_cell + str (start_row_number),item['direction'])
+			start_row_number +=1
+			
 
 class Master(object):
 	"""This class controls all other plugins:
@@ -78,7 +82,8 @@ class Master(object):
 
 		self.exchangeRate = ExchangeRate()
 		self.weather      = Weather()
-		self.myconnection = Connections() 
+		self.myconnection = Connections()
+		 
 		
 		#place holder for other option
 		if (SHOW_DATA_AT=="spread_sheet"):
@@ -111,6 +116,7 @@ class Master(object):
 		data = self.myconnection.scrape('5006157',["Backnang","Bietigheim-Bissingen"])
 		self.data_visualizer.show_connections(data)
 	
+
 	
 	
 	

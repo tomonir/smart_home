@@ -82,10 +82,9 @@ class Connections(object):
             else:
                 # Scheduled connection was cancelled
                 continue
-            out_put += "{'time':'"+dt.strftime(TIME_FORMAT)[11:16]+"',"+ "'transport':'"+ connection_name+ "'," +"'direction':'"+ departure.itdservingline['direction'].lower()+"'}," 
-            #print (result.append(dt.strftime(TIME_FORMAT) + " " + connection_name + "->" + departure.itdservingline['direction'].lower()))
+            out_put +="{\"time\":\""+str (dt.strftime(TIME_FORMAT)[11:16])+"\"," +"\"transport\":\""+str (connection_name)+"\"," +"\"direction\":\""+str (departure.itdservingline['direction'].lower())+"\"},"     
         #print(json.dumps(result))
-        return ("["+out_put+"]")
+        return ("["+out_put[:-1]+"]")
 
 
     #@main.command()
